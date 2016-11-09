@@ -13,7 +13,7 @@
               <% if(files[i].resource_type == "raw") { %>
                 <div class="raw-file"></div>
               <% } else if (files[i].format == "mp3") { %>
-                <audio src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "format": 'mp3'}) %>" controls />
+                <audio src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "resource_type": 'video', "format": 'mp3'}) %>" controls />
               <% } else { %>
                 <img
                   src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "format": 'jpg', "crop": 'fill', "width": 75, "height": 75 }) %>"
