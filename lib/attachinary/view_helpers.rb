@@ -39,8 +39,12 @@ module Attachinary
 
       if !options[:html][:accept] && accepted_types = options[:attachinary][:accept]
         accept = accepted_types.map do |type|
-          MIME::Types.type_for(type.to_s)[0]
-        end.compact
+          if ["m4a", "mp3"].include?(type.to_s)
+            MIME::Type.new("audio/*")
+          else
+            MIME::Types.type_for(type.to_s)[0]
+          end
+        end.compact.flatten
         options[:html][:accept] = accept.join(',') unless accept.empty?
       end
 
