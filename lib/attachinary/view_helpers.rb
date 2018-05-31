@@ -1,4 +1,5 @@
 require 'mime/types'
+require 'set'
 
 module Attachinary
   module ViewHelpers
@@ -40,11 +41,11 @@ module Attachinary
       if !options[:html][:accept] && accepted_types = options[:attachinary][:accept]
         accept = accepted_types.map do |type|
           if ["m4a", "mp3"].include?(type.to_s)
-            MIME::Type.new("audio/*")
+            [MIME::Type.new("audio/*"), ".#{type}"]
           else
-            MIME::Types.type_for(type.to_s)[0]
+            [MIME::Types.type_for(type.to_s)[0], ".#{type}"]
           end
-        end.compact.flatten
+        end.compact.flatten.map(&:to_s).to_set.to_a
         options[:html][:accept] = accept.join(',') unless accept.empty?
       end
 
