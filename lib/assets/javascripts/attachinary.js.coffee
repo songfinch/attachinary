@@ -6,7 +6,6 @@
       disableWith: 'Uploading...'
       indicateProgress: true
       invalidFormatMessage: 'Invalid file format'
-      preload: 'none'
       template: """
         <ul>
           <% for(var i=0; i<files.length; i++){ %>
