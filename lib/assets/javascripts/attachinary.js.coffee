@@ -14,7 +14,7 @@
               <% if(files[i].resource_type == "raw") { %>
                 <div class="raw-file"></div>
               <% } else if (["mp3", "m4a"].indexOf(files[i].format) > -1) { %>
-                <audio src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "resource_type": 'video', "format": files[i].format }) %>" controls preload="none"/>
+                <audio src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "resource_type": 'video', "format": files[i].format }) %>" controls preload="<%= options.preload %>"/>
               <% } else { %>
                 <img
                   src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "format": 'jpg', "crop": 'fill', "width": 75, "height": 75 }) %>"
@@ -25,8 +25,8 @@
           <% } %>
         </ul>
       """
-      render: (files) ->
-        $.attachinary.Templating.template(@template, files: files)
+      render: (files, options) ->
+        $.attachinary.Templating.template(@template, files: files, options: options)
 
 
   $.fn.attachinary = (options) ->
@@ -167,7 +167,7 @@
       if @files.length > 0
         @$filesContainer.append @makeHiddenField(JSON.stringify(@files))
 
-        @$filesContainer.append @config.render(@files)
+        @$filesContainer.append @config.render(@files, @options)
         @$filesContainer.find('[data-remove]').on 'click', (event) =>
           event.preventDefault()
           @removeFile $(event.target).data('remove')
