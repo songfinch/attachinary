@@ -6,6 +6,7 @@
       disableWith: 'Uploading...'
       indicateProgress: true
       invalidFormatMessage: 'Invalid file format'
+      preload: 'none'
       template: """
         <ul>
           <% for(var i=0; i<files.length; i++){ %>
@@ -13,7 +14,7 @@
               <% if(files[i].resource_type == "raw") { %>
                 <div class="raw-file"></div>
               <% } else if (["mp3", "m4a"].indexOf(files[i].format) > -1) { %>
-                <audio src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "resource_type": 'video', "format": files[i].format }) %>" controls preload="none"/>
+                <audio src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "resource_type": 'video', "format": files[i].format }) %>" controls preload="<%=  %>"/>
               <% } else { %>
                 <img
                   src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "format": 'jpg', "crop": 'fill', "width": 75, "height": 75 }) %>"
@@ -30,6 +31,10 @@
 
   $.fn.attachinary = (options) ->
     settings = $.extend {}, $.attachinary.config, options
+    console.log ('testing')
+    console.log(settings)
+    console.log(options)
+    console.log($.attachinary.config)
 
     this.each ->
       $this = $(this)
