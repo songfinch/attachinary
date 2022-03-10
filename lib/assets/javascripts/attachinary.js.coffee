@@ -31,10 +31,6 @@
 
   $.fn.attachinary = (options) ->
     settings = $.extend {}, $.attachinary.config, options
-    console.log ('testing')
-    console.log(settings)
-    console.log(options)
-    console.log($.attachinary.config)
 
     this.each ->
       $this = $(this)
