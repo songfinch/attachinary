@@ -14,7 +14,7 @@
                 <div class="raw-file"></div>
               <% } else if (["mp3", "m4a"].indexOf(files[i].format) > -1) { %>
                 <audio src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "resource_type": 'video', "format": files[i].format }) %>"
-                  controls preload="<%= options.preload %>" class="<%= options.class %>"/>
+                  controls preload="<%= options.preload %>" class="<%= options.class %>" data-variants="<%= options.variants %>" />
               <% } else { %>
                 <img
                   src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "format": 'jpg', "crop": 'fill', "width": 75, "height": 75 }) %>"
@@ -43,6 +43,7 @@
   class $.attachinary.Attachinary
     constructor: (@$input, @config) ->
       @options = @$input.data('attachinary')
+
       @files = @options.files
 
       @$form = @$input.closest('form')
