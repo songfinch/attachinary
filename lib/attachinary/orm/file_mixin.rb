@@ -5,7 +5,7 @@ module Attachinary
       if Rails::VERSION::MAJOR == 3
         base.attr_accessible :public_id, :version, :width, :height, :format, :resource_type
       end
-      base.after_destroy :destroy_file
+      base.after_commit :destroy_file, on: :destroy
       base.after_create  :remove_temporary_tag
     end
 
