@@ -40,7 +40,7 @@ module Attachinary
 
       if !options[:html][:accept] && accepted_types = options[:attachinary][:accept]
         accept = accepted_types.map do |type|
-          if ["m4a", "mp3"].include?(type.to_s)
+          if ["m4a", "mp3", "wav"].include?(type.to_s)
             [MIME::Type.new("audio/*"), ".#{type}"]
           else
             [MIME::Types.type_for(type.to_s)[0], ".#{type}"]
